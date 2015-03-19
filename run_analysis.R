@@ -8,6 +8,10 @@ x_train<-read.table("./Project/train/X_train.txt")
 y_train<-read.table("./Project/train/y_train.txt")
 subj_train<-read.table("./Project/train/subject_train.txt")
 
+#load other data
+features<-read.table("./Project/features.txt")
+activity<-read.table("./Project/activity_labels.txt")
+
 #1.Merges the training and the test sets to create one data set. 
 #merge x data
 x_data<-rbind(x_test, x_train)
@@ -20,7 +24,6 @@ subj_data<-rbind(subj_test, subj_train)
 
 #2.Extracts only the measurements on the mean and standard deviation for each measurement.
 #columns with means and SD
-features<-read.table("./Project/features.txt")
 MSD<-grep("-(mean|std)\\(\\)", features[, 2])
 
 #subset mean and SD columns
@@ -30,8 +33,6 @@ x_data_f<-x_data[ , MSD]
 names(x_data_f)<-features[MSD, 2]
 
 #3. Uses descriptive activity names to name the activities in the data set
-activity<-read.table("./Project/activity_labels.txt")
-
 #add activity names to the values
 y_data[, 1] <- activity[y_data[, 1], 2]
 
